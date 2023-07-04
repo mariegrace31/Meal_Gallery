@@ -1,9 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 
 :root {
   --background-color: #23180d;
   --heading-color: #ff914d;
   --paragraph-color: #fff;
+  --radius-4: 4px;
+  --transition-1: ease 0.5s;
 }
 
 *,
@@ -20,6 +23,94 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+main {
+  margin: 8em 0;
+  padding: 0 1em;
+}
+
+/* #MEALS-CARD */
+.meal-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  justify-content: space-evenly;
+  align-items: stretch;
+}
+
+.meal-list li {
+  list-style-type: none;
+  transition: var(--transition-1);
+}
+
+.meal-list li:hover {
+  border-radius: var(--radius-4);
+  box-shadow: 0 0 13px 1px var(--heading-color);
+}
+
+.meal-list img {
+  width: 25vw;
+  min-width: 100px;
+  max-width: 100%;
+  border-radius: var(--radius-4);
+}
+
+.meal-list h2 {
+  font-size: 1.5vw;
+  margin: 0.5em 0.5em 0.5em 0.2em;
+}
+
+.button-like {
+  float: right;
+  background: transparent;
+  color: var(--paragraph-color);
+  border: 1px transparent;
+  margin-left: 0.5em;
+}
+
+.button-like:hover {
+  color: var(--heading-color);
+}
+
+.meal-list .button-comment {
+  width: 150px;
+  padding: 10px;
+  margin: 5px;
+  border: 1px transparent;
+  border-radius: var(--radius-4);
+  background: var(--heading-color);
+  color: var(--paragraph-color);
+  text-align: left;
+  font-size: 1.5vw;
+  transition: all var(--transition-1);
+  cursor: pointer;
+}
+
+.meal-list .button-comment span {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  transition: var(--transition-1);
+  cursor: pointer;
+}
+
+.meal-list .button-comment span::after {
+  content: '\00bb';
+  position: absolute;
+  top: 0;
+  right: -20px;
+  opacity: 0;
+  transition: var(--transition-1);
+}
+
+.meal-list .button-comment:hover span {
+  padding-right: 25px;
+}
+
+.meal-list .button-comment:hover span::after {
+  opacity: 1;
+  right: 0;
+}
+
 /* #FOOTER */
 footer {
   width: 100%;
@@ -31,4 +122,30 @@ footer {
 
 footer a {
   color: var(--heading-color);
+}
+
+@media screen and (width < 1172px) {
+  .meal-list .button-comment {
+    width: 104px;
+    padding: 5px;
+  }
+
+  .meal-list .button-comment:hover span::after {
+    right: 9px;
+  }
+}
+
+@media screen and (width < 746px) {
+  .meal-list .button-comment {
+    width: 55%;
+  }
+}
+
+@media screen and (width < 426px) {
+  .meal-list .button-comment {
+    width: 95%;
+    display: block;
+    margin: 5px auto;
+    border-radius: 0;
+  }
 }
