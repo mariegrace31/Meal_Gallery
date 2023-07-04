@@ -69,3 +69,4 @@ meals.forEach((meal, i) => {
 return mealsArr;
 }
 
+export default popUp();
