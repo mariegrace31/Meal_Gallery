@@ -19,3 +19,31 @@ body {
   color: var(--paragraph-color);
   font-family: 'Roboto', sans-serif;
 }
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  gap: 70px;
+}
+
+header ul {
+  list-style: none;
+  display: flex;
+  gap: 70px;
+}
+
+header ul li a {
+  text-decoration: none;
+  color: var(--heading-color);
+  font-size: 25px;
+}
+
+header ul li a:hover {
+  text-decoration: underline;
+}
+
+#logo-image {
+  max-width: 90px;
+}
