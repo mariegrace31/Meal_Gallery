@@ -48,15 +48,16 @@ header ul li a:hover {
 #logo-image {
   max-width: 90px;
 
-/* #FOOTER */
-footer {
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  padding: 1em;
-  border-top: 1px dotted var(--heading-color);
-}
+  /* #FOOTER */
+  footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    padding: 1em;
+    border-top: 1px dotted var(--heading-color);
+  }
 
-footer a {
-  color: var(--heading-color);
+  footer a {
+    color: var(--heading-color);
+  }
 }
