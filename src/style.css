@@ -19,3 +19,16 @@ body {
   color: var(--paragraph-color);
   font-family: 'Roboto', sans-serif;
 }
+
+/* #FOOTER */
+footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  padding: 1em;
+  border-top: 1px dotted var(--heading-color);
+}
+
+footer a {
+  color: var(--heading-color);
+}
