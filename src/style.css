@@ -155,6 +155,11 @@ footer {
   border-top: 1px dotted var(--heading-color);
 }
 
+.window {
+  border: 1px solid black;
+  padding: 20px;
+}
+
 @media screen and (width < 1172px) {
   .meal-list .button-comment {
     width: 104px;
