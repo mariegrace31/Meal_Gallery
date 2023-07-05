@@ -50,6 +50,7 @@ meals.forEach((meal, i) => {
   popWindow.innerHTML =
   `
   <img class="popImage${i + 1}" src="${meal.image}" />
+  <i class="fa fa-times closeIcon" ></i>
   <h2>${meal.title}</h2>
   <div class="description1">
   <ul>
