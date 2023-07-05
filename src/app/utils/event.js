@@ -1,11 +1,12 @@
-import popUp from './modules/comments-popup.js';
-
+import popUp from '../utils/comments-popup.js';
+const comment = document.querySelectorAll('.button-comment');
 const event = () => {
-  const comment = document.querySelectorAll('#button');
   // change the line bellow
-  const section = document.querySelector('')
+  const section = document.querySelector('main')
   const popWindow = popUp();
+
   for (let i= 0; i < comment.length; i += 1) {
+
     comment[i].addEventListener('click', () => {
       popWindow[i].classList.add('active');
       section.appendChild(popWindow[i]);
@@ -18,5 +19,4 @@ const event = () => {
     });
   }
 }
-
-export default event();
+export {event as default};
