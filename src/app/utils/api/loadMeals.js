@@ -72,4 +72,4 @@ const displayAllMeal = async () => {
   });
 };
 
-export { displayAllMeal as default };
+export { displayAllMeal as displayAllMeals, mealsID as mealsData };
