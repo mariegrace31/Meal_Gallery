@@ -1,4 +1,6 @@
-import apiKey from './key.js';
+/* import { addLike, fetchLike } from '../likeButtonInterraction.js'; */
+import { apiKey } from './key.js';
+import addLikeEvent from '../likeButtonEvent.js';
 
 // Identifier of the selected meals
 const mealsID = [
@@ -49,8 +51,21 @@ const displayAllMeal = async () => {
     mealListItemName.textContent = mealName;
 
     const mealListItemLikeButton = document.createElement('button');
-    mealListItemLikeButton.type = 'button';
+    mealListItemLikeButton.type = 'submit';
+    mealListItemLikeButton.title = 'like meal';
     mealListItemLikeButton.classList.add('fa', 'fa-heart', 'button-like');
+    mealListItemLikeButton.title = 'Like meal';
+    mealListItemLikeButton.id = mealID.id;
+    mealListItemLikeButton.name = `like-${mealID.id}`;
+    mealListItemLikeButton.setAttribute('data-likes', 0);
+    let click = 0;
+    mealListItemLikeButton.addEventListener('click', () => {
+      click += 1;
+      addLikeEvent(mealListItemLikeButton.id, click);
+    });
+
+    const mealListItemLikeContainer = document.createElement('div');
+    mealListItemLikeContainer.classList.add('like-container');
 
     const mealListItemComButton = document.createElement('button');
     mealListItemComButton.type = 'button';
@@ -63,7 +78,8 @@ const displayAllMeal = async () => {
     mealImage.src = mealThumb;
     mealImage.alt = mealName;
 
-    mealListItemName.appendChild(mealListItemLikeButton);
+    mealListItemLikeContainer.appendChild(mealListItemLikeButton);
+    mealListItemName.appendChild(mealListItemLikeContainer);
     mealListItemComButton.appendChild(mealListItemComSpan);
     mealListItem.appendChild(mealImage);
     mealListItem.appendChild(mealListItemName);
