@@ -1,6 +1,6 @@
 /* import { addLike, fetchLike } from '../likeButtonInterraction.js'; */
 import { apiKey } from './key.js';
-import addLikeEvent from '../likeButtonEvent.js';
+import addLike from './addLike.js';
 
 // Identifier of the selected meals
 const mealsID = [
@@ -57,11 +57,8 @@ const displayAllMeal = async () => {
     mealListItemLikeButton.title = 'Like meal';
     mealListItemLikeButton.id = mealID.id;
     mealListItemLikeButton.name = `like-${mealID.id}`;
-    mealListItemLikeButton.setAttribute('data-likes', 0);
-    let click = 0;
     mealListItemLikeButton.addEventListener('click', () => {
-      click += 1;
-      addLikeEvent(mealListItemLikeButton.id, click);
+      addLike(mealID.id);
     });
 
     const mealListItemLikeContainer = document.createElement('div');

@@ -1,4 +1,4 @@
 const mealGalleryKey = '1';
-const mealGalleryLikeKey = '9eR6rn0eO8bc23';
+const mealGalleryLikeKey = 'tpI4C2991qVmO7aYTUX0';
 
 export { mealGalleryKey as apiKey, mealGalleryLikeKey as apiLikeKey };

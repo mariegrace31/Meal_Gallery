@@ -88,16 +88,33 @@ main {
 }
 
 .meal-list h2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   font-size: 1.5vw;
   margin: 0.5em 0.5em 0.5em 0.2em;
 }
 
 .button-like {
-  float: right;
   background: transparent;
   color: var(--paragraph-color);
   border: 1px transparent;
   margin-left: 0.5em;
+  position: relative;
+  cursor: pointer;
+}
+
+.button-like.has-like::after {
+  position: absolute;
+  content: attr(data-likes) 'Likes';
+  bottom: -1.3em;
+  right: -0.5em;
+  font-size: 1rem;
+  color: var(--heading-color);
+  background: var(--paragraph-color);
+  padding: 2px;
+  border-radius: var(--radius-4);
+  z-index: -1;
 }
 
 .button-like:hover {
@@ -176,6 +193,7 @@ footer {
     width: 95%;
     display: block;
     margin: 5px auto;
+    margin-top: 7px;
     border-radius: 0;
   }
 }
