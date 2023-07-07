@@ -59,6 +59,8 @@ const displayAllMeal = async () => {
     mealListItemLikeButton.name = `like-${mealID.id}`;
     mealListItemLikeButton.addEventListener('click', () => {
       addLike(mealID.id);
+      // eslint-disable-next-line no-use-before-define
+      updateLikes();
     });
 
     const mealListItemLikeContainer = document.createElement('div');
@@ -85,20 +87,22 @@ const displayAllMeal = async () => {
   });
 };
 
-const displayLikes = async () => {
-  let data = [];
-  data = await getLike();
+const updateLikes = async () => {
+  const data = await getLike();
   const likeButtons = document.querySelectorAll('.button-like');
 
-  for (let index = 0; index < data.length; index += 1) {
-    const element = data[index];
-    likeButtons.forEach((likeButton) => {
-      if (element.item_id === parseInt(likeButton.id, 10)) {
-        likeButton.setAttribute('data-likes', element.likes);
-        likeButton.classList.add('has-like');
-      }
-    });
-  }
+  likeButtons.forEach((likeButton) => {
+    const buttonID = parseInt(likeButton.id, 10);
+    const likeData = data.find((element) => element.item_id === buttonID);
+
+    if (likeData) {
+      likeButton.setAttribute('data-likes', likeData.likes);
+      likeButton.classList.add('has-like');
+    } else {
+      likeButton.setAttribute('data-likes', 0);
+      likeButton.classList.remove('has-like');
+    }
+  });
 };
 
-export { displayAllMeal as displayAllMeals, mealsID as mealsData, displayLikes };
+export { displayAllMeal as displayAllMeals, mealsID as mealsData, updateLikes };
