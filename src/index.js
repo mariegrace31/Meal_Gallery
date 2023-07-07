@@ -1,6 +1,6 @@
 import './style.css';
 import logo from '../assets/meal-galery-logo.gif';
-import { displayAllMeals } from './app/utils/api/loadMeals.js';
+import { displayAllMeals, mealsID } from './app/utils/api/loadMeals.js';
 import popUp from './app/utils/api/comments-popup.js';
 
 const logoBox = document.getElementById('logo');
@@ -10,4 +10,19 @@ logoImg.src = logo;
 logoBox.appendChild(logoImg);
 
 displayAllMeals();
-popUp();
+
+
+// Add event listeners to "Comments" button
+  const buttonTarget = document.querySelector('.meal-list');
+  buttonTarget.addEventListener('click', (e) => {
+    if (e.target.matches('.button-comment')) {
+      console.log('button clicked');
+      const mealID = parseInt(e.target.getAttribute('name'), 10);
+      const selectedMeal = mealsID.find((meal) => meal.id === mealID);
+      if (selectedMeal) {
+        console.log(selectedMeal);
+        const popWindow = popUp(mealID);
+        document.body.appendChild(popWindow);
+      }
+    }
+  });

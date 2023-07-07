@@ -1,6 +1,7 @@
 import apiKey from './key.js';
 
-// Identifier of the selected meals
+const url = `https://www.themealdb.com/api/json/v1/${apiKey}/lookup.php?i=`;
+
 const mealsID = [
   {
     id: 53013,
@@ -28,14 +29,10 @@ const mealsID = [
   },
 ];
 
-const url = `https://www.themealdb.com/api/json/v1/${apiKey}/lookup.php?i=`;
-
-const displayAllMeal = async () => {
+const displayAllMeals = async () => {
   const mealListContainer = document.querySelector('.meal-list');
 
-  mealsID.forEach(async (mealID) => {
-    // Combine the url with the ID of each meal
-    // It creates a new request to fetch
+  for (const mealID of mealsID) {
     const requestURL = `${url}${mealID.id}`;
     const response = await fetch(requestURL);
     const data = await response.json();
@@ -44,6 +41,7 @@ const displayAllMeal = async () => {
     const mealThumb = data.meals[0].strMealThumb;
 
     const mealListItem = document.createElement('li');
+    mealListItem.dataset.mealId = mealID.id;
 
     const mealListItemName = document.createElement('h2');
     mealListItemName.textContent = mealName;
@@ -54,7 +52,7 @@ const displayAllMeal = async () => {
 
     const mealListItemComButton = document.createElement('button');
     mealListItemComButton.type = 'button';
-    mealListItemComButton.classList = 'button-comment';
+    mealListItemComButton.classList.add('button-comment');
 
     const mealListItemComSpan = document.createElement('span');
     mealListItemComSpan.textContent = 'Comments';
@@ -69,7 +67,8 @@ const displayAllMeal = async () => {
     mealListItem.appendChild(mealListItemName);
     mealListItem.appendChild(mealListItemComButton);
     mealListContainer.appendChild(mealListItem);
-  });
+  }
 };
 
-export { displayAllMeal as displayAllMeals, mealsID as mealsData };
+export { displayAllMeals, mealsID };
+

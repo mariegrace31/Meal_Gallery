@@ -1,17 +1,14 @@
 import apiKey from './key.js';
-import {mealsData}  from './loadMeals.js';
-
 const url = `https://www.themealdb.com/api/json/v1/${apiKey}/lookup.php?i=`;
-
-const popUp = async (meal) => {
-  const requestURL = `${url}${mealsData.id}`;
+const popUp = async (mealID) => {
+  const requestURL = `${url}${mealID}`;
   const response = await fetch(requestURL);
   const data = await response.json();
+
   const popWindow = document.createElement('div');
   popWindow.classList.add('window');
 
   const image = document.createElement('img');
-  console.log("comment",data.meals[0])
   image.src = data.meals[0].strMealThumb;
   popWindow.appendChild(image);
 
@@ -39,7 +36,7 @@ const popUp = async (meal) => {
   description2.classList.add('description2');
   const ul2 = document.createElement('ul');
   const tags = document.createElement('li');
-  tags.textContent = `Tags: ${data.meals[0].strTags || 'N/A'}`;
+  tags.textContent = `Tags: ${data.meals[0].strTags}`;
   const instructions = document.createElement('li');
   instructions.textContent = `Description: ${data.meals[0].strInstructions}`;
   ul2.appendChild(tags);
@@ -50,4 +47,4 @@ const popUp = async (meal) => {
   return popWindow;
 };
 
-export {popUp as default};
+export default popUp;
