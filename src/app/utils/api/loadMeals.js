@@ -1,4 +1,6 @@
-import apiKey from './key.js';
+import { apiKey } from './key.js';
+import addLike from './addLike.js';
+import getLike from './getLike.js';
 
 // Identifier of the selected meals
 const mealsID = [
@@ -49,8 +51,20 @@ const displayAllMeal = async () => {
     mealListItemName.textContent = mealName;
 
     const mealListItemLikeButton = document.createElement('button');
-    mealListItemLikeButton.type = 'button';
+    mealListItemLikeButton.type = 'submit';
+    mealListItemLikeButton.title = 'like meal';
     mealListItemLikeButton.classList.add('fa', 'fa-heart', 'button-like');
+    mealListItemLikeButton.title = 'Like meal';
+    mealListItemLikeButton.id = mealID.id;
+    mealListItemLikeButton.name = `like-${mealID.id}`;
+    mealListItemLikeButton.addEventListener('click', () => {
+      addLike(mealID.id);
+      // eslint-disable-next-line no-use-before-define
+      updateLikes();
+    });
+
+    const mealListItemLikeContainer = document.createElement('div');
+    mealListItemLikeContainer.classList.add('like-container');
 
     const mealListItemComButton = document.createElement('button');
     mealListItemComButton.type = 'button';
@@ -63,7 +77,8 @@ const displayAllMeal = async () => {
     mealImage.src = mealThumb;
     mealImage.alt = mealName;
 
-    mealListItemName.appendChild(mealListItemLikeButton);
+    mealListItemLikeContainer.appendChild(mealListItemLikeButton);
+    mealListItemName.appendChild(mealListItemLikeContainer);
     mealListItemComButton.appendChild(mealListItemComSpan);
     mealListItem.appendChild(mealImage);
     mealListItem.appendChild(mealListItemName);
@@ -72,4 +87,22 @@ const displayAllMeal = async () => {
   });
 };
 
-export { displayAllMeal as displayAllMeals, mealsID as mealsData };
+const updateLikes = async () => {
+  const data = await getLike();
+  const likeButtons = document.querySelectorAll('.button-like');
+
+  likeButtons.forEach((likeButton) => {
+    const buttonID = parseInt(likeButton.id, 10);
+    const likeData = data.find((element) => element.item_id === buttonID);
+
+    if (likeData) {
+      likeButton.setAttribute('data-likes', likeData.likes);
+      likeButton.classList.add('has-like');
+    } else {
+      likeButton.setAttribute('data-likes', 0);
+      likeButton.classList.remove('has-like');
+    }
+  });
+};
+
+export { displayAllMeal as displayAllMeals, mealsID as mealsData, updateLikes };
