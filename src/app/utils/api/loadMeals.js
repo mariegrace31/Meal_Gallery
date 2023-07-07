@@ -1,6 +1,6 @@
-/* import { addLike, fetchLike } from '../likeButtonInterraction.js'; */
 import { apiKey } from './key.js';
 import addLike from './addLike.js';
+import getLike from './getLike.js';
 
 // Identifier of the selected meals
 const mealsID = [
@@ -85,4 +85,20 @@ const displayAllMeal = async () => {
   });
 };
 
-export { displayAllMeal as displayAllMeals, mealsID as mealsData };
+const displayLikes = async () => {
+  let data = [];
+  data = await getLike();
+  const likeButtons = document.querySelectorAll('.button-like');
+
+  for (let index = 0; index < data.length; index += 1) {
+    const element = data[index];
+    likeButtons.forEach((likeButton) => {
+      if (element.item_id === parseInt(likeButton.id, 10)) {
+        likeButton.setAttribute('data-likes', element.likes);
+        likeButton.classList.add('has-like');
+      }
+    });
+  }
+};
+
+export { displayAllMeal as displayAllMeals, mealsID as mealsData, displayLikes };

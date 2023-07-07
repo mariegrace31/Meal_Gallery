@@ -109,7 +109,7 @@ main {
   content: attr(data-likes) 'Likes';
   bottom: -1.3em;
   right: -0.5em;
-  font-size: 1rem;
+  font-size: 0.6rem;
   color: var(--heading-color);
   background: var(--paragraph-color);
   padding: 2px;
