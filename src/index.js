@@ -1,8 +1,8 @@
 import './style.css';
 import logo from '../assets/meal-galery-logo.gif';
-import { displayAllMeals, updateLikes, mealsData } from './app/utils/api/loadMeals.js';
+import { displayAllMeals, updateLikes, mealsID } from './app/utils/api/loadMeals.js';
 import homeItemsCounter from './app/utils/homeItemsCounter.js';
-
+import popUp from './app/utils/api/comments-popup';
 const logoBox = document.getElementById('logo');
 const logoImg = document.createElement('img');
 logoImg.id = 'logo-image';
@@ -11,22 +11,9 @@ logoBox.appendChild(logoImg);
 
 const totalMeals = document.querySelector('#total-meals');
 document.addEventListener('DOMContentLoaded', async () => {
-  const count = await homeItemsCounter(mealsData);
+  const count = await homeItemsCounter(mealsID);
   totalMeals.innerHTML = count;
   updateLikes();
 });
-// Add event listeners to "Comments" button
-const buttonTarget = document.querySelector('.meal-list');
-buttonTarget.addEventListener('click', (e) => {
-  if (e.target.matches('.button-comment')) {
-    console.log('button clicked');
-    const mealID = parseInt(e.target.getAttribute('name'), 10);
-    const selectedMeal = mealID.find((meal) => meal.id === mealID);
-    if (selectedMeal) {
-      console.log(selectedMeal);
-      const popWindow = popUp(mealID);
-      document.body.appendChild(popWindow);
-    }
-  }
-});
 displayAllMeals();
+popUp();

@@ -65,6 +65,10 @@ const displayAllMeals = async () => {
 
     const mealName = data.meals[0].strMeal;
     const mealThumb = data.meals[0].strMealThumb;
+    const mealCategory = data.meals[0].strCategory;
+    const mealArea =  data.meals[0].strArea;
+    const mealInstructions =  data.meals[0].strInstructions;
+    const mealTag =  data.meals[0].strTags;
 
     const mealListItem = document.createElement('li');
     mealListItem.dataset.mealId = mealID.id;
@@ -99,12 +103,59 @@ const displayAllMeals = async () => {
     mealImage.src = mealThumb;
     mealImage.alt = mealName;
 
+    // pop pup window
+    const popWindow = document.createElement('div');
+    popWindow.classList.add('window', 'hide');
+
+    const imgContainer = document.createElement('div');
+    imgContainer.classList.add('imgContainer');
+    popWindow.appendChild(imgContainer);
+    const image = document.createElement('img');
+    image.src = mealThumb;
+    imgContainer.appendChild(image);
+
+    const closeIcon = document.createElement('i');
+    closeIcon.classList.add('fa', 'fa-times', 'closeIcon');
+    closeIcon.addEventListener('click', () => {
+      popWindow.classList.toggle('hide');
+    });
+    imgContainer.appendChild(closeIcon);
+
+    const title = document.createElement('h2');
+    title.textContent = mealName;
+    popWindow.appendChild(title);
+
+    const description1 = document.createElement('div');
+    description1.classList.add('description1');
+    const ul1 = document.createElement('ul');
+    const category = document.createElement('li');
+    category.textContent = mealCategory;
+    const area = document.createElement('li');
+    area.textContent = mealArea;
+    ul1.appendChild(category);
+    ul1.appendChild(area);
+    description1.appendChild(ul1);
+    popWindow.appendChild(description1);
+
+    const description2 = document.createElement('div');
+    description2.classList.add('description2');
+    const ul2 = document.createElement('ul');
+    const tags = document.createElement('li');
+    tags.textContent = mealTag;
+    const instructions = document.createElement('li');
+    instructions.textContent = mealInstructions;
+    ul2.appendChild(tags);
+    ul2.appendChild(instructions);
+    description2.appendChild(ul2);
+    popWindow.appendChild(description2);
+    
     mealListItemLikeContainer.appendChild(mealListItemLikeButton);
     mealListItemName.appendChild(mealListItemLikeContainer);
-    mealListItemComButton.appendChild(mealListItemComSpan);
+    mealListItemComButton.appendChild(mealListItemComSpan); // I Appended span to the button
     mealListItem.appendChild(mealImage);
     mealListItem.appendChild(mealListItemName);
-    mealListItem.appendChild(mealListItemComButton);
+    mealListItem.appendChild(mealListItemComButton); // Appended comment button here
+    mealListItem.appendChild(popWindow);
     mealListContainer.appendChild(mealListItem);
   }
 };
