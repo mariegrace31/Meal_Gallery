@@ -17,6 +17,18 @@ const mealsID = [
     category: 'food',
   },
   {
+    id: 52852,
+    category: 'food',
+  },
+  {
+    id: 52907,
+    category: 'food',
+  },
+  {
+    id: 52914,
+    category: 'food',
+  },
+  {
     id: 52791,
     category: 'dessert',
   },
@@ -26,6 +38,18 @@ const mealsID = [
   },
   {
     id: 52854,
+    category: 'dessert',
+  },
+  {
+    id: 52776,
+    category: 'dessert',
+  },
+  {
+    id: 52910,
+    category: 'dessert',
+  },
+  {
+    id: 52912,
     category: 'dessert',
   },
 ];
