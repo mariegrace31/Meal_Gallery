@@ -2,6 +2,8 @@ import { apiKey } from './key.js';
 import addLike from './addLike.js';
 import getLike from './getLike.js';
 import popUp from './comments-popup.js';
+import { addComment, getComments } from './addGetComment.js';
+import commentsCounter from '../commentsCounter.js';
 
 const url = `https://www.themealdb.com/api/json/v1/${apiKey}/lookup.php?i=`;
 
@@ -109,19 +111,26 @@ const displayAllMeals = async () => {
     mealComments.classList.add('mealComments');
     const mealCommentsContainer = document.createElement('div');
     mealCommentsContainer.classList.add('mealCommentsContainer');
+    const totalComments = await commentsCounter(mealID.id);
+    const totalCommentsDiv = document.createElement('div');
+    totalCommentsDiv.textContent = `Comments(${totalComments})`;
+    // eslint-disable-next-line no-use-before-define
+    const commentDiv = await getAllComments(mealID.id);
+    mealCommentsContainer.appendChild(totalCommentsDiv);
+    mealCommentsContainer.appendChild(commentDiv);
     const commentsForm = document.createElement('form');
     commentsForm.classList.add('commentsForm');
     const inputUsername = document.createElement('input');
     inputUsername.type = 'text';
     inputUsername.name = 'username';
-    inputUsername.id = 'username';
-    inputUsername.classList.add('inputField');
+    inputUsername.id = `username${mealID.id}`;
+    inputUsername.classList.add('inputField', 'username');
     inputUsername.placeholder = 'Enter your name';
     inputUsername.required = true;
     const inputComments = document.createElement('textarea');
     inputComments.name = 'usercomment';
-    inputComments.id = 'usercomment';
-    inputComments.classList.add('inputField');
+    inputComments.id = `usercomment${mealID.id}`;
+    inputComments.classList.add('inputField', 'usercomment');
     inputComments.placeholder = 'Enter your comments';
     inputComments.required = true;
     const inputSubmitComment = document.createElement('input');
@@ -166,6 +175,26 @@ const displayAllMeals = async () => {
     const mealImage = document.createElement('img');
     mealImage.src = mealThumb;
     mealImage.alt = mealName;
+
+    commentsForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const username = commentsForm.querySelector('.username');
+      const comment = commentsForm.querySelector('.usercomment');
+      const usernameValue = username.value;
+      const commentValue = comment.value;
+
+      await addComment(mealID.id, usernameValue, commentValue);
+
+      username.value = '';
+      comment.value = '';
+
+      const commentsContainer = mealComments.querySelector('.mealCommentsContainer');
+
+      const allComments = await getComments(mealID.id);
+      commentsContainer.innerHTML = allComments
+        .map((comment) => `<p>${comment.creation_date} - ${comment.username}: ${comment.comment}</p>`)
+        .join('');
+    });
 
     ul1.appendChild(category);
     ul1.appendChild(area);
@@ -212,6 +241,25 @@ const updateLikes = async () => {
       likeButton.classList.remove('has-like');
     }
   });
+};
+
+const getAllComments = async (id) => {
+  const comments = await getComments(id);
+  let commentsData = '';
+  if (comments) {
+    commentsData = comments
+      .map((comment) => `<p>${comment.creation_date} - ${comment.username}: ${comment.comment}</p>`)
+      .join('');
+  }
+  const commentDivElement = document.createElement('div');
+
+  commentDivElement.innerHTML = `
+    <div class="comments-div">
+      ${commentsData}
+    </div>
+  `;
+
+  return commentDivElement;
 };
 
 export { displayAllMeals, mealsID, updateLikes };
