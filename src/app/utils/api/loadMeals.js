@@ -2,7 +2,7 @@ import { apiKey } from './key.js';
 import addLike from './addLike.js';
 import getLike from './getLike.js';
 import popUp from './comments-popup.js';
-import { getComments } from './addGetComment.js';
+import { addComment, getComments } from './addGetComment.js';
 
 const url = `https://www.themealdb.com/api/json/v1/${apiKey}/lookup.php?i=`;
 
@@ -119,13 +119,13 @@ const displayAllMeals = async () => {
     inputUsername.type = 'text';
     inputUsername.name = 'username';
     inputUsername.id = `username${mealID.id}`;
-    inputUsername.classList.add('inputField');
+    inputUsername.classList.add('inputField', 'username');
     inputUsername.placeholder = 'Enter your name';
     inputUsername.required = true;
     const inputComments = document.createElement('textarea');
     inputComments.name = 'usercomment';
     inputComments.id = `usercomment${mealID.id}`;
-    inputComments.classList.add('inputField');
+    inputComments.classList.add('inputField', 'usercomment');
     inputComments.placeholder = 'Enter your comments';
     inputComments.required = true;
     const inputSubmitComment = document.createElement('input');
@@ -169,6 +169,26 @@ const displayAllMeals = async () => {
     const mealImage = document.createElement('img');
     mealImage.src = mealThumb;
     mealImage.alt = mealName;
+
+    commentsForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const username = commentsForm.querySelector('.username');
+      const comment = commentsForm.querySelector('.usercomment');
+      const usernameValue = username.value;
+      const commentValue = comment.value;
+
+      await addComment(mealID.id, usernameValue, commentValue);
+
+      username.value = '';
+      comment.value = '';
+
+      const commentsContainer = mealComments.querySelector('.mealCommentsContainer');
+
+      const allComments = await getComments(mealID.id);
+      commentsContainer.innerHTML = allComments
+        .map((comment) => `<p>${comment.creation_date} - ${comment.username}: ${comment.comment}</p>`)
+        .join('');
+    });
 
     ul1.appendChild(category);
     ul1.appendChild(area);
