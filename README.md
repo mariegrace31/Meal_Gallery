@@ -69,6 +69,8 @@ Below is an overview of the app.
 
 This project is hosted on GitHub pages, so if you want to check it online, please click 😊 [here](https://mariegrace31.github.io/Meal_Gallery/dist/).
 
+[This](https://drive.google.com/file/d/1AAFWmUOx9na2bKIq-XzLGXzdCfLEvt1G/view?usp=sharing) is our video presentation.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ---
