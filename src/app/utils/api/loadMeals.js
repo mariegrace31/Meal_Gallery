@@ -3,6 +3,7 @@ import addLike from './addLike.js';
 import getLike from './getLike.js';
 import popUp from './comments-popup.js';
 import { addComment, getComments } from './addGetComment.js';
+import commentsCounter from '../commentsCounter.js';
 
 const url = `https://www.themealdb.com/api/json/v1/${apiKey}/lookup.php?i=`;
 
@@ -110,8 +111,12 @@ const displayAllMeals = async () => {
     mealComments.classList.add('mealComments');
     const mealCommentsContainer = document.createElement('div');
     mealCommentsContainer.classList.add('mealCommentsContainer');
+    const totalComments = await commentsCounter(mealID.id);
+    const totalCommentsDiv = document.createElement('div');
+    totalCommentsDiv.textContent = `Comments(${totalComments})`;
     // eslint-disable-next-line no-use-before-define
     const commentDiv = await getAllComments(mealID.id);
+    mealCommentsContainer.appendChild(totalCommentsDiv);
     mealCommentsContainer.appendChild(commentDiv);
     const commentsForm = document.createElement('form');
     commentsForm.classList.add('commentsForm');
