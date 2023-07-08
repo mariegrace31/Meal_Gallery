@@ -74,6 +74,7 @@ main {
 .meal-list li {
   list-style-type: none;
   transition: var(--transition-1);
+  position: relative;
 }
 
 .meal-list li:hover {
@@ -162,19 +163,31 @@ main {
   right: 0;
 }
 
-/* #FOOTER */
-footer {
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  padding: 1em;
-  background: var(--background-color);
-  border-top: 1px dotted var(--heading-color);
+/* POP PUP WINDOW */
+
+.window {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--background-color);
+  border-radius: var(--radius-4);
+  box-shadow: 0 0 0 100em #ff914d9c;
+  padding: 20px;
+  width: 80vw;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  z-index: 9999;
 }
 
-/* .window.hide {
+.window.hide {
   display: none;
-  .modal.active {
+  visibility: hidden;
+}
+
+.modal.active {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -189,45 +202,24 @@ footer {
   backdrop-filter: blur(4px);
   padding: 5% 9%;
 }
-} */
-
-/* POP PUP WINDOW */
-
-.window {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: var(--background-color);
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(85, 84, 84, 0.2);
-  padding: 20px;
-  width: 400px;
-  max-width: 90%;
-  z-index: 9999;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.window.hide {
-  opacity: 1;
-  visibility: visible;
-}
 
 .imgContainer {
   position: relative;
-  display: flex;
-  justify-content: space-between;
+  float: right;
 }
 
 .closeIcon {
-  font-size: 40px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 28px;
   color: var(--heading-color);
   cursor: pointer;
 }
 
 .window h2 {
   font-size: 35px;
+  display: block;
 }
 
 .description1 {
@@ -237,8 +229,41 @@ footer {
   font-size: 20px;
 }
 
+.description1 li:hover {
+  box-shadow: none;
+}
+
 .description2 {
   line-height: 25px;
+  margin-right: 25em;
+  text-align: justify;
+}
+
+.mealComments {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+}
+
+/* FOR COMMENT CONTAINER */
+.mealCommentsContainer {
+  background: blue;
+}
+
+/* FOR COMMENT FORM */
+.commentsForm {
+  background: red;
+  width: 50%;
+}
+
+/* #FOOTER */
+footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  padding: 1em;
+  background: var(--background-color);
+  border-top: 1px dotted var(--heading-color);
 }
 
 @media screen and (width < 1172px) {

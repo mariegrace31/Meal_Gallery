@@ -2,7 +2,8 @@ import './style.css';
 import logo from '../assets/meal-galery-logo.gif';
 import { displayAllMeals, updateLikes, mealsID } from './app/utils/api/loadMeals.js';
 import homeItemsCounter from './app/utils/homeItemsCounter.js';
-import popUp from './app/utils/api/comments-popup';
+// import popUp from './app/utils/api/comments-popup.js';
+
 const logoBox = document.getElementById('logo');
 const logoImg = document.createElement('img');
 logoImg.id = 'logo-image';
@@ -16,4 +17,4 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateLikes();
 });
 displayAllMeals();
-popUp();
+// popUp();

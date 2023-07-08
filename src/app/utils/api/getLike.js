@@ -18,7 +18,6 @@ const getLike = async () => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error('Erreur cannot get all "likes" data:', error);
     return [];
   }
 };

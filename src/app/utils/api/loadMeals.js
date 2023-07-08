@@ -1,6 +1,7 @@
 import { apiKey } from './key.js';
 import addLike from './addLike.js';
 import getLike from './getLike.js';
+import popUp from './comments-popup.js';
 
 const url = `https://www.themealdb.com/api/json/v1/${apiKey}/lookup.php?i=`;
 
@@ -58,7 +59,7 @@ const mealsID = [
 const displayAllMeals = async () => {
   const mealListContainer = document.querySelector('.meal-list');
 
-  for (const mealID of mealsID) {
+  mealsID.forEach(async (mealID) => {
     const requestURL = `${url}${mealID.id}`;
     const response = await fetch(requestURL);
     const data = await response.json();
@@ -66,10 +67,69 @@ const displayAllMeals = async () => {
     const mealName = data.meals[0].strMeal;
     const mealThumb = data.meals[0].strMealThumb;
     const mealCategory = data.meals[0].strCategory;
-    const mealArea =  data.meals[0].strArea;
-    const mealInstructions =  data.meals[0].strInstructions;
-    const mealTag =  data.meals[0].strTags;
+    const mealArea = data.meals[0].strArea;
+    const mealInstructions = data.meals[0].strInstructions;
 
+    // Pop-up window
+    const popWindow = document.createElement('div');
+    popWindow.classList.add('window', 'hide');
+
+    const imgContainer = document.createElement('div');
+    imgContainer.classList.add('imgContainer');
+    const image = document.createElement('img');
+    image.src = mealThumb;
+
+    const closeIcon = document.createElement('i');
+    closeIcon.classList.add('fa', 'fa-times', 'closeIcon');
+    closeIcon.addEventListener('click', () => {
+      popWindow.classList.toggle('hide');
+    });
+
+    const title = document.createElement('h2');
+    title.textContent = mealName;
+
+    const description1 = document.createElement('div');
+    description1.classList.add('description1');
+    const ul1 = document.createElement('ul');
+    const category = document.createElement('li');
+    category.textContent = `Category: ${mealCategory}`;
+    const area = document.createElement('li');
+    area.textContent = `Country: ${mealArea}`;
+
+    const description2 = document.createElement('div');
+    description2.classList.add('description2');
+    const instructionsTitle = document.createElement('p');
+    instructionsTitle.textContent = 'INSTRUCTIONS: ';
+    const instructions = document.createElement('p');
+    instructions.textContent = mealInstructions;
+
+    const mealDetails = document.createElement('div');
+    mealDetails.classList.add('mealDetails');
+    const mealComments = document.createElement('div');
+    mealComments.classList.add('mealComments');
+    const mealCommentsContainer = document.createElement('div');
+    mealCommentsContainer.classList.add('mealCommentsContainer');
+    const commentsForm = document.createElement('form');
+    commentsForm.classList.add('commentsForm');
+    const inputUsername = document.createElement('input');
+    inputUsername.type = 'text';
+    inputUsername.name = 'username';
+    inputUsername.id = 'username';
+    inputUsername.classList.add('inputField');
+    inputUsername.placeholder = 'Enter your name';
+    inputUsername.required = true;
+    const inputComments = document.createElement('textarea');
+    inputComments.name = 'usercomment';
+    inputComments.id = 'usercomment';
+    inputComments.classList.add('inputField');
+    inputComments.placeholder = 'Enter your comments';
+    inputComments.required = true;
+    const inputSubmitComment = document.createElement('input');
+    inputSubmitComment.type = 'submit';
+    inputSubmitComment.value = 'Send';
+    inputSubmitComment.title = 'Send your comment';
+
+    // Card box
     const mealListItem = document.createElement('li');
     mealListItem.dataset.mealId = mealID.id;
 
@@ -95,6 +155,9 @@ const displayAllMeals = async () => {
     const mealListItemComButton = document.createElement('button');
     mealListItemComButton.type = 'button';
     mealListItemComButton.classList.add('button-comment');
+    mealListItemComButton.addEventListener('click', () => {
+      popUp();
+    });
 
     const mealListItemComSpan = document.createElement('span');
     mealListItemComSpan.textContent = 'Comments';
@@ -103,61 +166,33 @@ const displayAllMeals = async () => {
     mealImage.src = mealThumb;
     mealImage.alt = mealName;
 
-    // pop pup window
-    const popWindow = document.createElement('div');
-    popWindow.classList.add('window', 'hide');
-
-    const imgContainer = document.createElement('div');
-    imgContainer.classList.add('imgContainer');
-    popWindow.appendChild(imgContainer);
-    const image = document.createElement('img');
-    image.src = mealThumb;
-    imgContainer.appendChild(image);
-
-    const closeIcon = document.createElement('i');
-    closeIcon.classList.add('fa', 'fa-times', 'closeIcon');
-    closeIcon.addEventListener('click', () => {
-      popWindow.classList.toggle('hide');
-    });
-    imgContainer.appendChild(closeIcon);
-
-    const title = document.createElement('h2');
-    title.textContent = mealName;
-    popWindow.appendChild(title);
-
-    const description1 = document.createElement('div');
-    description1.classList.add('description1');
-    const ul1 = document.createElement('ul');
-    const category = document.createElement('li');
-    category.textContent = mealCategory;
-    const area = document.createElement('li');
-    area.textContent = mealArea;
     ul1.appendChild(category);
     ul1.appendChild(area);
     description1.appendChild(ul1);
-    popWindow.appendChild(description1);
-
-    const description2 = document.createElement('div');
-    description2.classList.add('description2');
-    const ul2 = document.createElement('ul');
-    const tags = document.createElement('li');
-    tags.textContent = mealTag;
-    const instructions = document.createElement('li');
-    instructions.textContent = mealInstructions;
-    ul2.appendChild(tags);
-    ul2.appendChild(instructions);
-    description2.appendChild(ul2);
-    popWindow.appendChild(description2);
-    
+    title.appendChild(description1);
+    imgContainer.appendChild(closeIcon);
+    imgContainer.appendChild(image);
+    imgContainer.appendChild(title);
+    description2.appendChild(instructionsTitle);
+    description2.appendChild(instructions);
+    mealDetails.appendChild(imgContainer);
+    mealDetails.appendChild(description2);
+    commentsForm.appendChild(inputUsername);
+    commentsForm.appendChild(inputComments);
+    commentsForm.appendChild(inputSubmitComment);
+    mealComments.appendChild(mealCommentsContainer);
+    mealComments.appendChild(commentsForm);
+    popWindow.appendChild(mealDetails);
+    popWindow.appendChild(mealComments);
     mealListItemLikeContainer.appendChild(mealListItemLikeButton);
     mealListItemName.appendChild(mealListItemLikeContainer);
-    mealListItemComButton.appendChild(mealListItemComSpan); // I Appended span to the button
+    mealListItemComButton.appendChild(mealListItemComSpan);
     mealListItem.appendChild(mealImage);
     mealListItem.appendChild(mealListItemName);
-    mealListItem.appendChild(mealListItemComButton); // Appended comment button here
+    mealListItem.appendChild(mealListItemComButton);
     mealListItem.appendChild(popWindow);
     mealListContainer.appendChild(mealListItem);
-  }
+  });
 };
 
 const updateLikes = async () => {
