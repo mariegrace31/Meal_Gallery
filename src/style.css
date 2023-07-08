@@ -1,0 +1,348 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: var(--background-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--paragraph-color);
+  border-radius: 10px;
+}
+
+:root {
+  --background-color: #23180d;
+  --heading-color: #ff914d;
+  --paragraph-color: #fff;
+  --radius-4: 4px;
+  --radius-20: 20px;
+  --transition-1: ease 0.5s;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--background-color);
+  color: var(--paragraph-color);
+  font-family: 'Roboto', sans-serif;
+}
+
+/* #HEADER */
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  gap: 70px;
+}
+
+header ul {
+  list-style: none;
+  display: flex;
+  gap: 70px;
+}
+
+footer a {
+  color: var(--heading-color);
+}
+
+header ul li a {
+  text-decoration: none;
+  color: var(--heading-color);
+  font-size: 25px;
+}
+
+header ul li a:hover {
+  text-decoration: underline;
+}
+
+#logo-image {
+  max-width: 90px;
+}
+
+main {
+  margin: 2em 0 8em 0;
+  padding: 0 1em;
+}
+
+/* #MEALS-CARD */
+.meal-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  justify-content: space-evenly;
+  align-items: stretch;
+}
+
+.meal-list li {
+  list-style-type: none;
+  transition: var(--transition-1);
+  position: relative;
+}
+
+.meal-list li:hover {
+  border-radius: var(--radius-4);
+  box-shadow: 0 0 13px 1px var(--heading-color);
+}
+
+.meal-list img {
+  width: 25vw;
+  min-width: 100px;
+  max-width: 100%;
+  border-radius: var(--radius-4);
+}
+
+.meal-list h2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: 1.5vw;
+  margin: 0.5em 0.5em 0.5em 0.2em;
+}
+
+.button-like {
+  background: transparent;
+  color: var(--paragraph-color);
+  border: 1px transparent;
+  margin-left: 0.5em;
+  position: relative;
+  cursor: pointer;
+}
+
+.button-like.has-like::after {
+  position: absolute;
+  content: attr(data-likes) 'Likes';
+  bottom: -1.3em;
+  right: -0.5em;
+  font-size: 0.7rem;
+  color: var(--background-color);
+  background: var(--paragraph-color);
+  padding: 2px;
+  border-radius: var(--radius-4);
+  z-index: -1;
+}
+
+.button-like:hover {
+  color: var(--heading-color);
+}
+
+.meal-list .button-comment {
+  width: 150px;
+  padding: 10px;
+  margin: 5px;
+  border: 1px transparent;
+  border-radius: var(--radius-4);
+  background: var(--heading-color);
+  color: var(--paragraph-color);
+  text-align: left;
+  font-size: 1.5vw;
+  transition: all var(--transition-1);
+  cursor: pointer;
+}
+
+.meal-list .button-comment span {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  transition: var(--transition-1);
+  cursor: pointer;
+}
+
+.meal-list .button-comment span::after {
+  content: '\00bb';
+  position: absolute;
+  top: 0;
+  right: -20px;
+  opacity: 0;
+  transition: var(--transition-1);
+}
+
+.meal-list .button-comment:hover span {
+  padding-right: 25px;
+}
+
+.meal-list .button-comment:hover span::after {
+  opacity: 1;
+  right: 0;
+}
+
+/* POP PUP WINDOW */
+
+.window {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--background-color);
+  border-radius: var(--radius-4);
+  box-shadow: 0 0 0 100em #ff914d9c;
+  padding: 20px;
+  width: 80vw;
+  z-index: 1;
+}
+
+.window.hide {
+  display: none;
+  visibility: hidden;
+}
+
+.imgContainer {
+  position: relative;
+  float: right;
+}
+
+.closeIcon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 35px;
+  color: var(--heading-color);
+  cursor: pointer;
+}
+
+.window h2 {
+  font-size: 35px;
+  display: block;
+}
+
+.description1 {
+  display: flex;
+  flex-direction: column;
+  color: var(--heading-color);
+  font-size: 20px;
+}
+
+.description1 li:hover {
+  box-shadow: none;
+}
+
+.description2 {
+  line-height: 26px;
+  margin-right: 27em;
+  text-align: justify;
+}
+
+.mealComments {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+}
+
+/* FOR COMMENT CONTAINER */
+.mealCommentsContainer {
+  background-color: var(--heading-color);
+  border-radius: var(--radius-20);
+  width: 380px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid black;
+}
+
+.commentDiv {
+  color: var(--background-color);
+  font-weight: bold;
+  font-size: 19px;
+  text-align: center;
+}
+
+/* FOR COMMENT FORM */
+.commentsForm {
+  background: var(--heading-color);
+  width: 33%;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  align-items: center;
+  border-top-left-radius: var(--radius-20);
+  border-bottom-right-radius: var(--radius-20);
+  padding: 20px;
+}
+
+.username {
+  background-color: var(--paragraph-color);
+  border: 2px solid #5f5f5f;
+  outline: #5f5f5f;
+  border-radius: var(--radius-4);
+  height: 35px;
+  width: 250px;
+}
+
+textarea {
+  background-color: #fff;
+  border: 2px solid #5f5f5f;
+  outline: #5f5f5f;
+  border-radius: var(--radius-4);
+  height: 60px;
+  width: 250px;
+}
+
+#sendcomment {
+  background-color: var(--background-color);
+  border: 1px solid #5f5f5f;
+  width: 70px;
+  height: 35px;
+  font-size: 18px;
+  border-radius: var(--radius-4);
+  color: var(--heading-color);
+}
+
+#sendcomment:hover {
+  background-color: var(--paragraph-color);
+  color: var(--heading-color);
+}
+
+::placeholder {
+  color: #999797;
+  padding: 5px;
+}
+
+/* #FOOTER */
+footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  padding: 1em;
+  font-size: 23px;
+  background: var(--background-color);
+  border-top: 1px dotted var(--heading-color);
+}
+
+@media screen and (width < 1172px) {
+  .meal-list .button-comment {
+    width: 104px;
+    padding: 5px;
+  }
+
+  .meal-list .button-comment:hover span::after {
+    right: 9px;
+  }
+}
+
+@media screen and (width < 746px) {
+  .meal-list .button-comment {
+    width: 55%;
+  }
+}
+
+@media screen and (width < 426px) {
+  .meal-list .button-comment {
+    width: 95%;
+    display: block;
+    margin: 5px auto;
+    margin-top: 7px;
+    border-radius: 0;
+  }
+}
