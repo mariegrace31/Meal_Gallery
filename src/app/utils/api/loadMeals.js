@@ -114,6 +114,7 @@ const displayAllMeals = async () => {
     const totalComments = await commentsCounter(mealID.id);
     const totalCommentsDiv = document.createElement('div');
     totalCommentsDiv.textContent = `Comments(${totalComments})`;
+    totalCommentsDiv.classList.add('commentDiv');
     // eslint-disable-next-line no-use-before-define
     const commentDiv = await getAllComments(mealID.id);
     mealCommentsContainer.appendChild(totalCommentsDiv);

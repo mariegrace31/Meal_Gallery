@@ -232,7 +232,20 @@ main {
 
 /* FOR COMMENT CONTAINER */
 .mealCommentsContainer {
-  background-color: blue;
+  background-color: var(--heading-color);
+  border-radius: 30px;
+  width: 380px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid black;
+}
+
+.commentDiv {
+  color: var(--background-color);
+  font-weight: bold;
+  font-size: 19px;
+  text-align: center;
 }
 
 /* FOR COMMENT FORM */
@@ -248,7 +261,7 @@ main {
   padding: 20px;
 }
 
-#username {
+.username {
   background-color: #fff;
   border: 2px solid #5f5f5f;
   border-radius: var(--radius-4);
@@ -256,7 +269,7 @@ main {
   width: 250px;
 }
 
-#usercomment {
+textarea {
   background-color: #fff;
   border: 2px solid #5f5f5f;
   border-radius: var(--radius-4);
