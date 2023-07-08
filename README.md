@@ -1,7 +1,7 @@
 <a name="readme-top"></a>
 
 <div align="center">
-  <img src="https://github.com/mariegrace31/Meal_Gallery/assets/101261047/0d3d618f-f289-4172-8219-f50c90966003" alt="logo" width="140"  height="auto" />
+  <img src="./assets/meal-galery-logo.gif" alt="logo" width="140"  height="140" />
 
 #  **Meal Gallery**
 Meal Gallery is an innovative app that allows you to discover a variety of delicious meals from around the world. Whether you're an experienced chef or simply a food enthusiast, this app is perfect for you. 
@@ -59,7 +59,7 @@ The Meal Gallery app showcases mouthwatering images of appetizing dishes accompa
 Below is an overview of the app.
 <br>
 <div align="center">
-  <img src="./src/assets/app_screenshot.png" alt="Leaderboard Screenshot" max-width="300"  max-height="320" border="4px solid gray" />
+  <img src="./assets/app_screenshot.png" alt="Meal Gallery Screenshot" max-width="300"  max-height="320" border="4px solid gray" />
 </div><br>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
