@@ -80,6 +80,7 @@ const displayAllMeals = async () => {
     imgContainer.classList.add('imgContainer');
     const image = document.createElement('img');
     image.src = mealThumb;
+    image.alt = `Image of ${mealName}`;
 
     const closeIcon = document.createElement('i');
     closeIcon.classList.add('fa', 'fa-times', 'closeIcon');
