@@ -8,25 +8,25 @@ const getComments = async (id) => {
         'content-type': 'application/json',
       },
     });
-    return response.data;
+    const commentsData = await response.json();
+    return commentsData;
   } catch (error) {
     return [];
   }
 };
 
 const addComment = async (id, name, comments) => {
-  await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${commentLikeKey}/comments`,
-    {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        item_id: id,
-        username: name,
-        comment: comments,
-      }),
-    });
+  await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${commentLikeKey}/comments`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      item_id: id,
+      username: name,
+      comment: comments,
+    }),
+  });
   const commentData = await getComments(id);
   return commentData;
 };

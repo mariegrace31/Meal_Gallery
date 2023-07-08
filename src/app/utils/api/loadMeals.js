@@ -2,6 +2,7 @@ import { apiKey } from './key.js';
 import addLike from './addLike.js';
 import getLike from './getLike.js';
 import popUp from './comments-popup.js';
+import { getComments } from './addGetComment.js';
 
 const url = `https://www.themealdb.com/api/json/v1/${apiKey}/lookup.php?i=`;
 
@@ -109,18 +110,21 @@ const displayAllMeals = async () => {
     mealComments.classList.add('mealComments');
     const mealCommentsContainer = document.createElement('div');
     mealCommentsContainer.classList.add('mealCommentsContainer');
+    // eslint-disable-next-line no-use-before-define
+    const commentDiv = await getAllComments(mealID.id);
+    mealCommentsContainer.appendChild(commentDiv);
     const commentsForm = document.createElement('form');
     commentsForm.classList.add('commentsForm');
     const inputUsername = document.createElement('input');
     inputUsername.type = 'text';
     inputUsername.name = 'username';
-    inputUsername.id = 'username';
+    inputUsername.id = `username${mealID.id}`;
     inputUsername.classList.add('inputField');
     inputUsername.placeholder = 'Enter your name';
     inputUsername.required = true;
     const inputComments = document.createElement('textarea');
     inputComments.name = 'usercomment';
-    inputComments.id = 'usercomment';
+    inputComments.id = `usercomment${mealID.id}`;
     inputComments.classList.add('inputField');
     inputComments.placeholder = 'Enter your comments';
     inputComments.required = true;
@@ -211,6 +215,25 @@ const updateLikes = async () => {
       likeButton.classList.remove('has-like');
     }
   });
+};
+
+const getAllComments = async (id) => {
+  const comments = await getComments(id);
+  let commentsData = '';
+  if (comments) {
+    commentsData = comments
+      .map((comment) => `<p>${comment.creation_date} - ${comment.username}: ${comment.comment}</p>`)
+      .join('');
+  }
+  const commentDivElement = document.createElement('div');
+
+  commentDivElement.innerHTML = `
+    <div class="comments-div">
+      ${commentsData}
+    </div>
+  `;
+
+  return commentDivElement;
 };
 
 export { displayAllMeals, mealsID, updateLikes };
