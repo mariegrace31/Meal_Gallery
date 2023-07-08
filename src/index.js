@@ -8,6 +8,7 @@ const logoImg = document.createElement('img');
 logoImg.id = 'logo-image';
 logoImg.src = logo;
 logoImg.alt = 'Meal Gallery logo';
+logoImg.loading = 'lazy';
 logoBox.appendChild(logoImg);
 
 const totalMeals = document.querySelector('#total-meals');
