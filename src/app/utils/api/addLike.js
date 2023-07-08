@@ -1,4 +1,4 @@
-import { apiLikeKey } from './key.js';
+import { commentLikeKey } from './key.js';
 
 /*
  * Function that send new 'like' data to 'Involvement API'
@@ -9,7 +9,7 @@ import { apiLikeKey } from './key.js';
 */
 const addLike = async (id) => {
   const item1 = id;
-  const response = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${apiLikeKey}/likes`,
+  const response = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${commentLikeKey}/likes`,
     {
       method: 'POST',
       headers: {
