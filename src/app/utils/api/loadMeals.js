@@ -127,6 +127,7 @@ const displayAllMeals = async () => {
     const inputSubmitComment = document.createElement('input');
     inputSubmitComment.type = 'submit';
     inputSubmitComment.value = 'Send';
+    inputSubmitComment.id = 'sendcomment'
     inputSubmitComment.title = 'Send your comment';
 
     // Card box
